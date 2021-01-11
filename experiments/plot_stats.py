@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # ------------------------------------------
 # Parameters
 # ------------------------------------------
-EXPERIMENT_NAME = 'exp_nroom_large_h'
+EXPERIMENT_NAME = 'exp_nroom'
 AGENT_NAME = None
 
 # number of MC simulations for policy eval

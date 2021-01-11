@@ -15,7 +15,7 @@ class AdaptiveRFAgent(IncrementalAgent):
 
     """
     name = "AdaptiveRF"
-    fit_info = ("n_episodes",)
+    fit_info = ("n_episodes", "n_visited_states", "entropy", "error_bound")
 
     def __init__(self,
                  env,

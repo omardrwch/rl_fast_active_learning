@@ -1,6 +1,6 @@
 description: 'Reward-Free exploration in NRoom'
 seed: 42
-n_episodes: 5
+n_episodes: 10000
 horizon: 75
 train_env: 'hyperparams/nroom/env_rf.yaml'
 eval_env: 'hyperparams/nroom/env_rf.yaml'
