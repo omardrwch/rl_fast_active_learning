@@ -1,2 +1,0 @@
-base_config: 'hyperparams/nroom/agents/rf_express.yaml'
-stage_dependent: False

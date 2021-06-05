@@ -2,7 +2,7 @@ import logging
 import numpy as np
 from rlberry.agents import IncrementalAgent
 from rlberry.exploration_tools.discrete_counter import DiscreteCounter
-from rlberry.agents.dynprog.utils import backward_induction_ns, backward_induction
+from rlberry.agents.dynprog.utils import backward_induction_sd, backward_induction
 from rlberry.utils.writers import PeriodicWriter
 
 
@@ -66,19 +66,23 @@ class AdaptiveRFAgent(IncrementalAgent):
 
         # W_h^t(s, a), used to upper bound the error
         self.W_hsa = np.zeros((H, S, A))
+        self.V_hs = np.zeros((H, S))  # auxiliary only
+
         # N_h^t(s, a) and N_h^t(s,a,s'), counting the number of visits
         self.N_hsa = np.zeros(shape_hsa)
         self.N_hsas = np.zeros(shape_hsas)
 
         self.bonus = np.ones(shape_hsa)
-        self.P_hat = np.zeros(shape_hsas)
+        self.P_hat = np.ones(shape_hsas) * 1.0/S
 
         # initialize bonus
         if self.rf_type == 'rf_express':
             self.bonus *= 15*(self.horizon**2)*self._beta(0.0)
+            self.name = 'RF-Express'
 
         elif self.rf_type == 'rf_ucrl':
             self.bonus *= self.horizon*np.sqrt(self._beta(0.0))
+            self.name = 'RF-UCRL'
 
         # default writer
         self.writer = PeriodicWriter(self.name,
@@ -179,7 +183,13 @@ class AdaptiveRFAgent(IncrementalAgent):
             raise ValueError()
 
         if self.stage_dependent:
-            self.W_hsa, _ = backward_induction_ns(self.bonus, self.P_hat, gamma=multiplier, vmax=self.vmax)
+            backward_induction_sd(
+                self.W_hsa,
+                self.V_hs,
+                self.bonus,
+                self.P_hat,
+                gamma=multiplier,
+                vmax=self.vmax)
         else:
             self.W_hsa, _ = backward_induction(self.bonus, self.P_hat, self.horizon, gamma=multiplier, vmax=self.vmax)
 
@@ -205,7 +215,7 @@ if __name__ == '__main__':
         'rf_type': 'rf_express',
         'horizon': 50,
         'delta': 0.1,
-        'clip_v': True,
+        'clip_v': False,
         'stage_dependent': True,
     }
 

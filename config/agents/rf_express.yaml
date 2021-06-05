@@ -1,0 +1,5 @@
+agent_class: 'algorithms.adaptive_rf.AdaptiveRFAgent'
+init_kwargs:
+  rf_type: 'rf_express'
+  delta: 0.1
+  clip_v: True

@@ -1,0 +1,4 @@
+constructor: 'config.env_rf_constructor.vis2d_nroom_rf'
+params:
+  memory_size: 2000
+  nrooms: 15

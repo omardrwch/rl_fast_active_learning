@@ -1,0 +1,5 @@
+base_config: 'config/agents/rf_express.yaml'
+init_kwargs:
+  rf_type: 'rf_ucrl'
+  clip_v: False
+  stage_dependent: False

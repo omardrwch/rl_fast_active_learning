@@ -1,4 +1,0 @@
-agent_class: 'rfagents.adaptive_rf.AdaptiveRFAgent'
-rf_type: 'rf_express'
-delta: 0.1
-clip_v: True
