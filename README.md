@@ -12,8 +12,8 @@ The algorithm is implemented in the folder `algorithms/`. The folder `config/` c
 * Create and activate conda virtual environment (optional)
 
 ```bash
-$ conda create -n ucbmq_env python=3.7
-$ conda activate ucbmq_env
+$ conda create -n rl_fast_active_learning_env python=3.7
+$ conda activate rl_fast_active_learning_env
 ```
 
 * Install requirements
