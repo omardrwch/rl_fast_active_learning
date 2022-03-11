@@ -1,5 +1,5 @@
 from rlberry.experiment import load_experiment_results
-from rlberry.stats import plot_fit_info
+from evaluation import plot_writer_data
 import matplotlib.pyplot as plt
 
 import matplotlib
@@ -33,27 +33,27 @@ ACTION_DESCRIPTION = ['left', 'right', 'down', 'up']
 
 
 # Get list of AgentStats
-_stats_list = list(output_data['stats'].values())
-stats_list = []
-for stats in _stats_list:
-    if stats.agent_name in PLOT_TITLES:
-        stats.agent_name = PLOT_TITLES[stats.agent_name]
-        stats_list.append(stats)
+_managers_list = list(output_data['manager'].values())
+managers_list = []
+for manager in _managers_list:
+    if manager.agent_name in PLOT_TITLES:
+        manager.agent_name = PLOT_TITLES[manager.agent_name]
+        managers_list.append(manager)
 
 
 # -------------------------------
 # Plot and save
 # -------------------------------
-plot_fit_info(stats_list, 'n_visited_states', show=False)
+plot_writer_data(managers_list, tag='n_visited_states', show=False)
 plt.ticklabel_format(axis="x", style="sci", scilimits=(0,0))
 
 
-plot_fit_info(stats_list, 'entropy', show=False)
+plot_writer_data(managers_list, tag='entropy', show=False)
 plt.ticklabel_format(axis="x", style="sci", scilimits=(0,0))
 plt.xlabel("episode", labelpad=0)
 
 
-plot_fit_info(stats_list, 'error_bound', show=False)
+plot_writer_data(managers_list, tag='error_bound', show=False)
 plt.xscale('log')
 plt.yscale('log')
 
@@ -63,19 +63,4 @@ for ii, fig in enumerate(figs):
     fname = output_data['experiment_dirs'][0] / 'fig_{}.pdf'.format(ii)
     fig.savefig(fname, format='pdf', bbox_inches='tight')
 
-# save video, if available
-for stat in stats_list:
-    agent = stat.fitted_agents[0]
-    try:
-        n_episodes = stat.init_kwargs['n_episodes']
-        n_skip = n_episodes // N_FRAMES
-        agent.env.plot_trajectories(
-            dot_size_means='total_visits',
-            n_skip=n_skip,
-            dot_scale_factor=10,
-            show=False,
-            fignum=stat.agent_name)
-    except Exception:
-        pass
-    
 plt.show()

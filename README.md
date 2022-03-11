@@ -6,21 +6,20 @@ The algorithm is implemented in the folder `algorithms/`. The folder `config/` c
 
 * Requirements:
     * Python 3.7
-    * [`rlberry`](https://github.com/rlberry-py/rlberry) version 0.1
+    * [`rlberry`](https://github.com/rlberry-py/rlberry) version > 0.2.1
     * pyyaml
 
 * Create and activate conda virtual environment (optional)
 
 ```bash
-$ conda create -n rl_fast_active_learning_env python=3.7
+$ conda create -n rl_fast_active_learning_env python=3.8
 $ conda activate rl_fast_active_learning_env
 ```
 
 * Install requirements
 
 ```bash
-$ pip install 'rlberry[full]==0.1'
-$ pip install pyyaml
+$ pip install git+https://github.com/rlberry-py/rlberry.git@main#egg=rlberry[default]
 ```
 
 * Run and plot

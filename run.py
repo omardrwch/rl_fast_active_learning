@@ -7,13 +7,12 @@ $ python run.py config.yaml -h
 """
 
 from rlberry.experiment import experiment_generator
-from rlberry.stats.multiple_stats import MultipleStats
+from rlberry.manager import MultipleManagers
 
-mstats = MultipleStats()
+if __name__ == "__main__":
+    managers = MultipleManagers()
 
-for agent_stats in experiment_generator():
-    print(agent_stats.agent_class)
-    print(agent_stats.init_kwargs)
-    mstats.append(agent_stats)
+    for agent_manager in experiment_generator():
+        managers.append(agent_manager)
 
-mstats.run(save=True)
+    managers.run(save=True)

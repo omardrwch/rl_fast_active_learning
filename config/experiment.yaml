@@ -1,8 +1,10 @@
 description: 'Reward-Free exploration in NRoom'
 seed: 42
 global_init_kwargs:
-  n_episodes: 20000
+  # n_episodes: 20000
   horizon: 30
+global_fit_kwargs:
+  fit_budget: 1_000
 train_env: 'config/env_rf_larger.yaml'
 eval_env: 'config/env_rf_larger.yaml'
 agents:
